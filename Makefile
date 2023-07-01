@@ -6,6 +6,7 @@ install:
 	@make build
 	@make up
 	@make composer-update
+	@make data
 	@make perm-storage
 
 cp:
