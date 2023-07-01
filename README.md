@@ -9,7 +9,7 @@ Além disso, criei enpoints públicos e privados com operações CRUD para a ent
 
 Para facilitar a automação de tarefas, implementei scripts Make, permitindo a execução simplificada de comandos comuns durante o desenvolvimento e deploy da aplicação.
 
-Visando a fácil reprodução do ambiente de desenvolvimento, criei um Dockerfile e um Docker Compose que configuraram e orquestraram os serviços necessários. Isso incluiu a utilização do Nginx como servidor web, o PHP 8.1.17-fpm como interpretador PHP, o Mysql como banco de dados, o Redis como cache e o Supervisord para gerenciamento dos processos.
+Visando a fácil reprodução do ambiente de desenvolvimento, criei um Dockerfile e um Docker Compose que configuraram e orquestraram os serviços necessários. Isso incluiu a utilização do Nginx como servidor web, o PHP 8.1.17-fpm como interpretador PHP, o serviço de email do Mailtrap para simulação de envio de emails, o Mysql como banco de dados, o Redis como cache e o Supervisord para gerenciamento dos processos.
 
 Além disso, forneci um arquivo `Insomnia.json` que está na raiz do projeto, que pode ser importado na ferramenta Insomnia, permitindo testar e explorar facilmente os endpoints implementados.
 
