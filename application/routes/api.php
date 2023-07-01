@@ -17,6 +17,10 @@ use App\Http\Controllers\Api\{
 | is assigned the "api" middleware group. Enjoy building your API!
 */
 
+Route::get('/', function () {
+    return 'Working...';
+});
+
 /** Middleware */
 Route::group(['middleware' => ['apiJwt']], function () {
     /** Users */

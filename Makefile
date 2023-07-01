@@ -24,3 +24,5 @@ perm-storage:
 	docker exec -t dataseed-app bash -c 'chown -R www-data:www-data /var/www/storage'	
 in:
 	docker exec -it dataseed-app bash
+test:
+	docker exec dataseed-app bash -c 'php artisan test'

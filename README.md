@@ -43,6 +43,10 @@ make up
 ```bash
 make in
 ```
+#### Executar tests
+```bash
+make test
+```
 #### Desligar a aplicação
 ```bash
 make down
