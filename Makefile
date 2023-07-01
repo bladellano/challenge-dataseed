@@ -1,5 +1,3 @@
-#include laravel-app/.env.example
-
 install:
 	@make cp
 	@make down
@@ -11,18 +9,18 @@ install:
 
 cp:
 	cd application/ && rm .env -f && cp .env.example .env && cd ..
+down:
+	docker-compose down --remove-orphans
+build:
+	docker-compose build --no-cache --force-rm
+up:
+	docker-compose up -d
 composer-update:
-	docker exec dataseed-app bash -c 'composer update && php artisan key:generate && php artisan jwt:secret'	
-perm-storage:
-	docker exec -t dataseed-app bash -c 'chown -R www-data:www-data /var/www/storage'	
+	docker exec dataseed-app bash -c 'composer update && php artisan key:generate && php artisan jwt:secret'
 data:
 	docker exec dataseed-app bash -c 'php artisan migrate'
 	docker exec dataseed-app bash -c 'php artisan db:seed'
-build:
-	docker-compose build --no-cache --force-rm
-down:
-	docker-compose down --remove-orphans
+perm-storage:
+	docker exec -t dataseed-app bash -c 'chown -R www-data:www-data /var/www/storage'	
 in:
 	docker exec -it dataseed-app bash
-up:
-	docker-compose up -d
