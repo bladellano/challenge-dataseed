@@ -18,8 +18,7 @@ up:
 composer-update:
 	docker exec dataseed-app bash -c 'composer update && php artisan key:generate && php artisan jwt:secret'
 data:
-	docker exec dataseed-app bash -c 'php artisan migrate'
-	docker exec dataseed-app bash -c 'php artisan db:seed'
+	docker exec dataseed-app bash -c 'php artisan migrate && php artisan db:seed'
 perm-storage:
 	docker exec -t dataseed-app bash -c 'chown -R www-data:www-data /var/www/storage'	
 in:
