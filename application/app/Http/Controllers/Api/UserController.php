@@ -56,7 +56,10 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         try {
-            $user->update($request->all());
+            $data = $request->all();
+            $data['password'] =  Hash::make($request->input('password'));
+            $user->update($data);
+
             return response()->json(['data' => $user, 'message' => 'Registration updated successfully!']);
         } catch (\Exception $e) {
             return response()->json(['error' => true, 'message' => $e->getMessage()], 422);
