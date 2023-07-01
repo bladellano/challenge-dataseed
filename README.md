@@ -49,7 +49,7 @@ make down
 ```
 # Desenvolvido por
 
-Esta aplicação foi desenvolvida por [Caio Dellano Nunes da Silva.](https://dellanosites.com.br/) 
+Esta aplicação foi desenvolvida por [Caio Dellano Nunes da Silva.](https://cdnssystems.com.br/) 
 
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/bladellano/)
 
