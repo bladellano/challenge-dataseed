@@ -3,7 +3,7 @@
 
 The body of your message.
 
-@component('mail::button', ['url' => config('app.url') . '/response-password-reset?token=' . $token])
+@component('mail::button', ['url' => config('app.url') . '/auth/response-password-reset?token=' . $token])
 Button Text
 @endcomponent
 
