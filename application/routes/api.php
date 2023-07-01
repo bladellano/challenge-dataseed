@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\{
     UserController,
     AuthController,
-    PasswordResetRequestController
+    PasswordResetRequestController,
+    RegisterController
 };
 
 /*
@@ -22,7 +23,8 @@ Route::group(['middleware' => ['apiJwt']], function () {
     Route::resource('users', UserController::class);
 });
 
-/** Forgot */
+/** Register */
+Route::post('/register', [RegisterController::class,'register']);
 
 /** Auth */
 Route::prefix('auth')->group(function () {
