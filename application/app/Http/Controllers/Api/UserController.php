@@ -3,22 +3,28 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserUpdateRequest;
+use App\Contracts\RepositoryInterface;
 
 class UserController extends Controller
 {
+    protected $userRepository;
+
+    public function __construct(RepositoryInterface $repository)
+    {
+        $this->userRepository = $repository;
+    }
+
     /**
      * Display a listing of the resource.
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $users = User::paginate(10);
-        return response()->json($users);
+        return response()->json($this->userRepository->getAll());
     }
 
     /**
@@ -31,7 +37,7 @@ class UserController extends Controller
         try {
             $data = $request->all();
             $data['password'] =  Hash::make($request->input('password'));
-            $record = User::create($data);
+            $record = $this->userRepository->create($data);
             return response()->json(['data' => $record, 'message' => 'Record created successfully!'], 201);
         } catch (\Exception $e) {
             return response()->json(['error' => true, 'message'=> $e->getMessage()], 422);
@@ -43,15 +49,15 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($id)
     {
-        return response()->json($user);
+        return response()->json($this->userRepository->find($id));
     }
 
     /**
      * Update the specified resource in storage.
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param UserUpdateRequest $request
+     * @param User $user
      * @return \Illuminate\Http\Response
      */
     public function update(UserUpdateRequest $request, User $user)
@@ -59,7 +65,7 @@ class UserController extends Controller
         try {
             $data = $request->all();
             $data['password'] =  Hash::make($request->input('password'));
-            $user->update($data);
+            $this->userRepository->update($user->id, $data);
 
             return response()->json(['data' => $user, 'message' => 'Registration updated successfully!']);
         } catch (\Exception $e) {
@@ -69,12 +75,12 @@ class UserController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @param  int  $id
+     * @param User $user
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user)
     {
-        $user->delete();
+        $this->userRepository->delete($user->id);
         return response()->json(['message' => 'Record removed successfully.']);
     }
 }
