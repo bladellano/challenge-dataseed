@@ -34,7 +34,10 @@ Vá para o diretório do projeto
 E aguarde a montagem de toda a aplicação.
 
 # Comandos Make para acesso rápido
-
+#### Instalar a aplicação
+```bash
+make install
+```
 #### Subir a aplicação
 ```bash
 make up
@@ -48,6 +51,10 @@ make in
 make test
 ```
 #### Desligar a aplicação
+```bash
+make stop
+```
+#### Remover a aplicação
 ```bash
 make down
 ```
