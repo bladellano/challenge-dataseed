@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\UserStoreRequest;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\UserUpdateRequest;
 
 class UserController extends Controller
 {
@@ -22,10 +23,10 @@ class UserController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param UserRequest $request
+     * @param UserStoreRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest $request)
+    public function store(UserStoreRequest $request)
     {
         try {
             $data = $request->all();
@@ -53,7 +54,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UserUpdateRequest $request, User $user)
     {
         try {
             $data = $request->all();

@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\UserStoreRequest;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 
 class RegisterController extends Controller
 {
-    public function register(UserRequest $request)
+    public function register(UserStoreRequest $request)
     {
         try {
             $data = $request->all();

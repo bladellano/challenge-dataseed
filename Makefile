@@ -25,3 +25,5 @@ in:
 	docker exec -it dataseed-app bash
 test:
 	docker exec dataseed-app bash -c 'php artisan test'
+stop:
+	docker-compose stop
