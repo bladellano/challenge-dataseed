@@ -3,19 +3,19 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
-use App\Http\Requests\UserStoreRequest;
+use App\Services\UserService;
+use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
-use App\Contracts\RepositoryInterface;
 
 class UserController extends Controller
 {
-    protected $userRepository;
+    protected $service;
 
-    public function __construct(RepositoryInterface $repository)
+    public function __construct(UserService $service)
     {
-        $this->userRepository = $repository;
+        $this->service = $service;
     }
 
     /**
@@ -24,7 +24,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return response()->json($this->userRepository->getAll());
+        return $this->service->getAll();
     }
 
     /**
@@ -35,23 +35,20 @@ class UserController extends Controller
     public function store(UserStoreRequest $request)
     {
         try {
-            $data = $request->all();
-            $data['password'] =  Hash::make($request->input('password'));
-            $record = $this->userRepository->create($data);
-            return response()->json(['data' => $record, 'message' => 'Record created successfully!'], 201);
+            return $this->service->create($request->all());
         } catch (\Exception $e) {
-            return response()->json(['error' => true, 'message'=> $e->getMessage()], 422);
+            return response()->json(['error' => true, 'message'=> $e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }
 
     /**
      * Display the specified resource.
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     * @return void
      */
-    public function show($id)
+    public function show(User $user)
     {
-        return response()->json($this->userRepository->find($id));
+        return $this->service->find($user->id);
     }
 
     /**
@@ -63,13 +60,9 @@ class UserController extends Controller
     public function update(UserUpdateRequest $request, User $user)
     {
         try {
-            $data = $request->all();
-            $data['password'] =  Hash::make($request->input('password'));
-            $this->userRepository->update($user->id, $data);
-
-            return response()->json(['data' => $user, 'message' => 'Registration updated successfully!']);
+            return $this->service->update($user->id, $request->all());
         } catch (\Exception $e) {
-            return response()->json(['error' => true, 'message' => $e->getMessage()], 422);
+            return response()->json(['error' => true, 'message' => $e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }
 
@@ -80,7 +73,6 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $this->userRepository->delete($user->id);
-        return response()->json(['message' => 'Record removed successfully.']);
+        return $this->service->delete($user->id);
     }
 }

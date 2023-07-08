@@ -5,9 +5,6 @@ use Illuminate\Database\Eloquent\Model;
 
 abstract class AbstractRepository
 {
-    /**
-     * @var Model
-     */
     protected $model;
 
     public function __construct(Model $model)
@@ -20,17 +17,17 @@ abstract class AbstractRepository
         return $this->model->paginate(10);
     }
 
-    public function find($id)
+    public function find(int $id)
     {
         return $this->model->find($id);
     }
 
-    public function create($data)
+    public function create(array $data)
     {
         return $this->model->create($data);
     }
 
-    public function update($id, array $data)
+    public function update(int $id, array $data)
     {
         $model = $this->find($id);
 
@@ -42,7 +39,7 @@ abstract class AbstractRepository
         return null;
     }
 
-    public function delete($id)
+    public function delete(int $id)
     {
         $model = $this->find($id);
 
